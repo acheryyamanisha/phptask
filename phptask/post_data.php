@@ -1,8 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "innoraft6995";
-$dbname = "tasksix";
+//contains all the required credentials in this file
+include("credentials.php");
+$servername = $servername;
+$username = $username;
+$password = $password;
+$dbname = $dbname;
 
 $conn = new mysqli($servername, $username, $password, $dbname);
   $fname=$_POST['user_fname'];
@@ -26,7 +28,7 @@ $txt1 = 'invalid';
 $correct = "$number is valid";
 $error = "$mobile is not valid";
 $errornull = "Not valid";*/
-$access_key = '292baf18df18e53727ddb78a9e76bbdf';
+$access_key = $access_key;
 
 // set email address
 $email_address = $email;

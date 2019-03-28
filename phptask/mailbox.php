@@ -5,9 +5,10 @@
 </head>
 <body>
 <?php
+include("credentials.php");
 if(isset($_POST['submit'])){
 // set API Access Key
-$access_key = '292baf18df18e53727ddb78a9e76bbdf';
+$access_key = $access_key;
 
 // set email address
 $email_address = $_POST['email'];
