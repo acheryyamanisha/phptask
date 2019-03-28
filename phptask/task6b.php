@@ -53,7 +53,7 @@ textarea {
     }
 
 #submit {  color: white;   background-color: rgba(3,201,169,.8);  cursor: pointer; font-size:24px !important; }
-#status{text-align:center; font-size:24px; margin-top:20px; font-weight:bold}
+#status, #status1 {text-align:center; font-size:24px; margin-top:20px; font-weight:bold}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -83,12 +83,28 @@ textarea {
       },
       success: function (response)
       {
-	    document.getElementById("status").innerHTML="Form Submitted Successfully";
+        if(response == 1) {
+	         document.getElementById("status").innerHTML="Form Submitted Successfully";
+           alert("Download the form");
+           window.open("export1.php?email="+email+"&lname="+lname+"&fname="+fname+"&fullname="+fullname+"&number="+number+"&message="+message);
+
+          }
+        if(response == 2) {
+            document.getElementById("status1").innerHTML="Email Validation failed";
+            alert('not submitted');
+          }
+
+        if(response == 3) {
+            document.getElementById("status1").innerHTML="phone number Validation failed";
+            alert('not submitted');
+          }
+          if(response == 0) {
+            document.getElementById("status1").innerHTML="phone number and email Validation failed";
+          }
       }
     });
     document.getElementById("hello").innerHTML="Hello  "+fullname;
   }
-
   return false;
 }
 
@@ -110,9 +126,11 @@ var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
 if (re.test(email1)) {
     $('.msg').hide();
     $('.correct').show();
+    $("#submit").removeAttr("disabled");
 } else {
     $('.msg').hide();
     $('.error').show();
+     $("#submit").attr("disabled",true);
 }
  });
 
@@ -122,9 +140,11 @@ var regex = /^([+][9][1])([6-9]{1})([0-9]{9})$/;
 if (regex.test(num)) {
     $('.msgs').hide();
     $('.correctnum').show();
+     $("#submit").removeAttr("disabled");
 } else {
     $('.msgs').hide();
     $('.errornum').show();
+     $("#submit").attr("disabled",true);
 }
 });
 });
@@ -151,6 +171,7 @@ if (regex.test(num)) {
 	<input type="submit" id="submit" value="Submit" name="submit">
 </form>
 <p id="status"></p>
+<p id="status1"></p>
 </div>
  </body>
 </html>
