@@ -7,3 +7,4 @@ $username = "";
 $password = "";
 $dbname = "";
 $access_key = 'mailboxlayer api access token';
+$per_page = "NO. OF REPOS USER WANTS TO BE DISPLAYED ON EACH PAGE";
