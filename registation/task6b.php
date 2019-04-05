@@ -1,22 +1,48 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: login.php');
+}
+if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['username']);
+    header("location: login.php");
+}
+?>
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Submit Form Without Page Refresh</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
 <style>
 * {
   margin:10px 0;
   outline: none;
   padding:0px;
   text-align:center;
-  background: #191e21;
-  color:#F8B068;
+  color:#ff7b03;
 }
 
 form {
+  background: #191e21;
   width: 470px;
   text-align: center;
   margin: 0 auto;
+}
+
+#wrapper {
+      border: 6px solid rgb(25, 30, 33);
+    margin: 50px auto;
+    width: 40%;
+    padding: 20px 0 50px 0;
 }
 
 #wrapper input,#wrapper textarea {
@@ -152,9 +178,16 @@ if (regex.test(num)) {
 </script>
 </head>
 <body>
+    <div class="header">
+    <?php  if (isset($_SESSION['username'])) : ?>
+    <h5 id ="logout"> <a href="index.php?logout='1'" style="color: red;">logout</a> </h5>
+      <h2>Welcome <strong><?php echo $_SESSION['username']; ?></strong></h2>
+ <h5 id ="logout"> <a href="index.php" style="color: red;">go back to index page</a> </h5>
+    <?php endif ?>
+</div>
 <h1 id="hello"></h1>
 <h1>Submit Form Without Page Refresh</h1>
-<div id="wrapper" style="border: 6px solid rgba(255,255,255,0.5); margin:40px auto; width:36%; padding:10px 45px 30px 20px">
+<div id="wrapper" style="border: 6px solid black; margin:50px auto; width:40%; padding:10px 0 40 10px">
 <form method='POST' action="" onsubmit="return post();">
   First Name  <input type="text" id="fname" name="fname" class="input-box">
 
@@ -172,6 +205,11 @@ if (regex.test(num)) {
 </form>
 <p id="status"></p>
 <p id="status1"></p>
+</div>
+<div class="pager">
+<?php
+include('pager.php');
+?>
 </div>
  </body>
 </html>

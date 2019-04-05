@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: login.php');
+}
+if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['username']);
+    header("location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +30,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
   <title></title>
 </head>
 <body>
+    <div class="header">
+    <?php  if (isset($_SESSION['username'])) : ?>
+    <h5 id ="logout"> <a href="index.php?logout='1'" style="color: red;">logout</a> </h5>
+      <h2>Welcome <strong><?php echo $_SESSION['username']; ?></strong></h2>
+ <h5 id ="logout"> <a href="index.php" style="color: red;">go back to index page</a> </h5>
+    <?php endif ?>
+</div>
+<br />
   <div class="container div1">
     <?php
 
@@ -89,6 +111,11 @@ if ($nextpage < $total_pages)
  echo "<a href=\"?page={$nextpage}\">Next</a>";
 }
 
+?>
+</div>
+<div class="pager">
+<?php
+include('pager.php');
 ?>
 </div>
 
